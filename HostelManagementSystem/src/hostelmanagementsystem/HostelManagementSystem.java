@@ -7,7 +7,7 @@ package hostelmanagementsystem;
 
 /**
  *
- * @author Abdul Waheed
+ * @author Abdul Waheed Muhammad Sohail
  */
 public class HostelManagementSystem {
 

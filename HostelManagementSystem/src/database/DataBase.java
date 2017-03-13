@@ -18,6 +18,16 @@ import java.sql.Statement;
  */
 public class DataBase {
     
+    private Connection connection;
+    
+    private Statement statement;
+    
+    private ResultSet resultSet;
+    
+    private  int numberOfRows;
+    
+    private boolean connectedToDatabase = false;
+    
     public int Update_Query(String query) throws SQLException, ClassNotFoundException
     {
         
@@ -37,21 +47,20 @@ public class DataBase {
     
     
     
-     public int Select_Query(String query) throws SQLException, ClassNotFoundException
+    public void Select_Query(String query) throws SQLException, ClassNotFoundException
     {
        
+        if(!connectedToDatabase)
+        {
+        throw new IllegalStateException ("Not Connected To Database");
+        }
+      
+        statement = null;
         
-        Statement st = null;
+        resultSet = null;
         
-        ResultSet rs = null;
+        resultSet = statement.executeQuery(query);
         
-     //   st = con.createStatement();
-        
-        rs = st.executeQuery(query);
-        
-        return 0;
-        
-
     }
     
     public Connection getConnection() throws ClassNotFoundException, SQLException
@@ -62,10 +71,31 @@ public class DataBase {
      String user = "root";
      String pass = "";
      Connection con = DriverManager.getConnection(connection_string, user, pass);
-    
-   
-        return con;
+     connectedToDatabase = true;
+     return con;
     }
     
-    
+    public void disconnectFromDatabase()
+    {
+    if(connectedToDatabase)
+    {
+     
+        try
+        {
+               resultSet.close();
+               statement.close();
+               connection.close();
+        }
+        catch(SQLException sqlException)
+        {
+            sqlException.printStackTrace();
+        } 
+        
+        finally
+        {
+            connectedToDatabase = false;        
+        }
+    }
+        
+    }
 }
