@@ -5,10 +5,16 @@
  */
 package hostelmanagementsystem;
 
+import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.Spring;
+import javax.swing.SpringLayout;
 
 /**
  *
@@ -18,11 +24,16 @@ public class Student extends JFrame{
     
     public Student()
     {
-                initUI();
+        try{
+            initUI();
+        }catch(ClassNotFoundException | SQLException e){
+        
+        }
     }
     
-    private void initUI()
+    private void initUI() throws SQLException, ClassNotFoundException
     {
+        
     
       setVisible(true);
   
@@ -33,10 +44,13 @@ public class Student extends JFrame{
       setTitle("Great Student Hostel");
      
       setDefaultCloseOperation(EXIT_ON_CLOSE);
-      
-      
+     
      JPanel Registration = new JPanel();
      
+     SpringLayout layout = new SpringLayout();
+      
+     Registration.setLayout(layout);
+ 
      add(Registration);
      
      JLabel nameLabel = new JLabel();
@@ -45,10 +59,14 @@ public class Student extends JFrame{
      
      JTextField nameField = new JTextField();
      
+     nameField.setPreferredSize(new Dimension(90,20));
+     
      JLabel f_nameLabel = new JLabel();
      
      f_nameLabel.setText("Father Name");
   
+      
+     
      JTextField f_nameField= new JTextField();
      
      JLabel cnicLabel = new JLabel();
@@ -82,33 +100,31 @@ public class Student extends JFrame{
      JTextField prevMarksField = new JTextField();
      
      
-     Registration.add(nameField);
-     
      Registration.add(nameLabel);
+     
+     Registration.add(nameField);
      
      Registration.add(f_nameLabel);
      
      Registration.add(f_nameField);
      
-     Registration.add(dobLabel);
      
-     Registration.add(dobField);
+     database.DataBase connectivity = new database.DataBase();
      
-     Registration.add(cnicLabel);
+     Connection con ;
      
-     Registration.add(cnicField);
      
-     Registration.add(prevEducationLabel);
+      con = connectivity.getConnection();
      
-     Registration.add(prevEducationField);
+       
      
-     Registration.add(prevCollegeLabel);
+    
+   
      
-     Registration.add(prevCollegeField);
+     String sql = "INSERT INTO students (name, cms, cnic) VALUES ('Sohail','14465','17201') ";
      
-     Registration.add(prevMarksLabel);
-     
-     Registration.add(prevMarksField);
+     connectivity.Update_Query(sql);
+   
      
      
     }
