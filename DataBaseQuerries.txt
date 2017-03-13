@@ -1,0 +1,22 @@
+Database Name: hostelmanagementsystem
+
+Tables:
+students:
+
+
+
+
+CREATE TABLE `students` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+ 
+ `cms` int(11) DEFAULT NULL,
+  `cnic` int(11) DEFAULT NULL,
+  `father_name` varchar(255) DEFAULT NULL,
+ 
+ `date_of_birth` date DEFAULT NULL,
+  `eductionLevel` varchar(255) DEFAULT NULL,
+ 
+ `college_name` varchar(255) DEFAULT NULL,
+ `marks` int(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
