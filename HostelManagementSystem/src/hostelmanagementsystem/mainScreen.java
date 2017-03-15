@@ -36,9 +36,7 @@ public class mainScreen extends JFrame {
     {
       
         
-        
-      setVisible(true);
-  
+
       setBounds(0, 0, 900, 660);
       
       setName("mainFrame");
@@ -66,7 +64,7 @@ public class mainScreen extends JFrame {
       label.setFont(label.getFont().deriveFont(29.0f));
       label.setForeground(Color.white);
       label.setText("Welcome To Kashmir Boys Hostle");
-       label.setVerticalAlignment(label.BOTTOM);
+       label.setVerticalAlignment(JLabel.BOTTOM);
        label.setBounds(230,5, 500,60);
       container.add(panelLabel);
       
@@ -152,12 +150,16 @@ public class mainScreen extends JFrame {
       
       footerLabel.setFont(footerLabel.getFont().deriveFont(17f));
       
-      footerLabel.setVerticalTextPosition(footerLabel.BOTTOM);
+      footerLabel.setVerticalTextPosition(JLabel.BOTTOM);
       
-      footerLabel.setVerticalAlignment(footerLabel.BOTTOM);
+      footerLabel.setVerticalAlignment(JLabel.BOTTOM);
       
       footer.add(footerLabel);
       
+      
+              
+      setVisible(true);
+  
      
       //action listener
       
@@ -179,36 +181,24 @@ public class mainScreen extends JFrame {
     
     
 
-      facilities.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-                        }
+      facilities.addActionListener((ActionEvent e) -> {
       });
       
     
     
 
-      join.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-             
-              
-             Student stdObj = new Student();
-             
-             setVisible(false);
-             
-             stdObj.setVisible(true);
-              
-             }
+      join.addActionListener((ActionEvent e) -> {
+          Student stdObj = new Student();
+          
+          setVisible(false);
+          
+          stdObj.setVisible(true);
       });
       
     
     
 
-      payments.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-                        }
+      payments.addActionListener((ActionEvent e) -> {
       });
       
     }

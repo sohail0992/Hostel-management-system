@@ -11,8 +11,6 @@ import java.awt.event.ActionListener;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,6 +39,8 @@ public class Student extends JFrame{
     
     private String collegeName;
     
+    private String sql;
+    
     private double securityFee;
       
     public Student()
@@ -51,7 +51,7 @@ public class Student extends JFrame{
     private void initUI()
     {
     
-      setVisible(true);
+     
       
       setBounds(0, 0, 900, 660);
       
@@ -65,7 +65,7 @@ public class Student extends JFrame{
      JPanel Registration = new JPanel();
      Registration.setBackground(new Color(0,199,0));
      add(Registration);
-     
+      
      Registration.setLayout(null);
      
      
@@ -108,25 +108,26 @@ public class Student extends JFrame{
      dobField.setBounds(400, 235, 200, 30);
      
      
-     JLabel prevEducationLabel = new JLabel();
-      prevEducationLabel.setBounds(200, 250, 200, 100);
-     prevEducationLabel.setText("Education Level");
-     prevEducationLabel.setFont(prevEducationLabel.getFont().deriveFont(15f));
-     JTextField prevEducationField = new JTextField();
-      prevEducationField.setBounds(400, 285, 200, 30);
+     JLabel educationLabel = new JLabel();
+      educationLabel.setBounds(200, 250, 200, 100);
+     educationLabel.setText("Education Level");
+     educationLabel.setFont(educationLabel.getFont().deriveFont(15f));
+     JTextField educationField = new JTextField();
+      educationField.setBounds(400, 285, 200, 30);
       
       
-     JLabel prevCollegeLabel = new JLabel();
-     prevCollegeLabel.setBounds(200, 300, 100, 100);
-     prevCollegeLabel.setText("College Name");
-     prevCollegeLabel.setFont(prevCollegeLabel.getFont().deriveFont(15f));
-     JTextField prevCollegeField = new JTextField();
-     prevCollegeField.setBounds(400, 335, 200, 30);
+     JLabel college = new JLabel();
+     college.setBounds(200, 300, 100, 100);
+     college.setText("College Name");
+     college.setFont(college.getFont().deriveFont(15f));
+     JTextField collegeField = new JTextField();
+     collegeField.setBounds(400, 335, 200, 30);
      
 
      JLabel securityFeeLabel = new JLabel();
      securityFeeLabel.setBounds(200, 350, 100, 100);
      securityFeeLabel.setText("Security Fee");
+     securityFeeLabel.setFont(securityFeeLabel.getFont().deriveFont(15f));
      JTextField securityFeeField = new JTextField();
      securityFeeField.setBounds(400, 385, 200, 30);
 
@@ -152,13 +153,13 @@ public class Student extends JFrame{
      
      Registration.add(cnicField);
      
-     Registration.add(prevEducationLabel);
+     Registration.add(educationLabel);
      
-     Registration.add(prevEducationField);
+     Registration.add(educationField);
      
-     Registration.add(prevCollegeLabel);
+     Registration.add(college);
      
-     Registration.add(prevCollegeField);
+     Registration.add(collegeField);
      
      Registration.add(securityFeeLabel);
 
@@ -167,66 +168,45 @@ public class Student extends JFrame{
      
      Registration.add(submitButton);
      
+     setVisible(true);
      
      
-     submitButton.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-              
-           // DateFormat df = new SimpleDateFormat("MM/dd/yyyy");   
-              
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-            
-            name = nameField.getText();
-            
-            fatherName = f_nameField.getText();
-            
-            
-            try
-            {
-            cnic = cnic.add(new BigInteger(cnicField.getText()));
-          
-             try {
-                    dateOfBirth = formatter.parse(dobField.getText());
-                } catch (ParseException ex) {
-                    Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
-                }
-             
-             educationLevel = prevEducationField.getText();
-             
-             collegeName =    prevCollegeField.getText();
-             
-                    setSecurityFee(Double.parseDouble(securityFeeField.getText()));
-             
-            }
-            catch(NumberFormatException nfe )
-            {
-             System.out.println(nfe);
-            }
-                    
-            
-              
-          database.DataBase connectivity = new database.DataBase();
-      
-        try {
-            Connection connection = connectivity.getConnection();
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
-        }
+     
+     
+     submitButton.addActionListener((ActionEvent e) -> {
+         // DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+         //      SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+         name = nameField.getText();
+         fatherName = f_nameField.getText();
+         educationLevel = educationField.getText();
+         collegeName =    collegeField.getText();
+//            cnic = cnic.add(new BigInteger(cnicField.getText()));
+//          dateOfBirth = formatter.parse(dobField.getText());
+
+//   securityFee = Double.parseDouble(securityFeeField.getText());
 
 
-      String sql = "INSERT INTO `students` (`name`, `cnic`, `father_name`,`date_of_birth`, `eductionLevel`, `college_name`, `securityFee`) VALUES"
-              + " ('"+name+"', '"+cnic+"', '"+fatherName+"', '"+dateOfBirth+"', '"+educationLevel+"', '"+collegeName+"','"+securityFee+"');";
+
+       sql = "INSERT INTO `students` (`name`, `cnic`, `father_name`,`date_of_birth`, `eductionLevel`, `college_name`, `securityFee`) VALUES"
+        + " ('"+name+"', '"+cnic+"', '"+fatherName+"', '"+dateOfBirth+"', '"+educationLevel+"', '"+collegeName+"','"+securityFee+"');";
 
 
-        try {
-            connectivity.Update_Query(sql);
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+database.DataBase connectivity = new database.DataBase();
+
+
+try {
+    Connection connection = connectivity.getConnection();
+    connectivity.Update_Query(sql,connection);
    
+} catch (SQLException | ClassNotFoundException ex) {
+    Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+}
+finally
+      {
+              connectivity.disconnectFromDatabase();
              
-          }
+     }
       });
      
    

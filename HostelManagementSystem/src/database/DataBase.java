@@ -9,8 +9,11 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,25 +27,28 @@ public class DataBase {
     
     private ResultSet resultSet;
     
+    private ResultSetMetaData resultSetMetaData;
+    
     private  int numberOfRows;
     
     private boolean connectedToDatabase = false;
     
-    public int Update_Query(String query) throws SQLException, ClassNotFoundException
+    private final String DATABASE_URL = "dbc:mysql://localhost:3306/hostelmanagementsystem";
+    
+    private final String user = "root";
+    
+    private final String pass = "";
+    
+    public int Update_Query(String query,Connection con) throws SQLException, ClassNotFoundException
     {
-        
-        
-        Connection con = this.getConnection();
      
-        Statement st =null;
+        statement  =null;
+    
+        statement = con.createStatement();
         
-        int x = -1;
-        
-        st = con.createStatement();
-        
-        x = st.executeUpdate(query);
+        numberOfRows = statement.executeUpdate(query);
        
-        return x;
+        return numberOfRows;
     }
     
     
@@ -67,13 +73,34 @@ public class DataBase {
     {
     // Connection con = null;
      Class.forName("com.mysql.jdbc.Driver");
-     String connection_string = "jdbc:mysql://localhost:3306/hostelmanagementsystem";
-     String user = "root";
-     String pass = "";
-     Connection con = DriverManager.getConnection(connection_string, user, pass);
+     Connection con = DriverManager.getConnection(DATABASE_URL, user, pass);
      connectedToDatabase = true;
      return con;
     }
+    
+    public void displayAll(String query,Connection connection)
+    {
+           statement = null;
+           
+           resultSet = null;
+           
+        try {
+            
+            statement = connection.createStatement();
+            
+            resultSet = statement.executeQuery(query);
+            
+            resultSetMetaData = resultSet.getMetaData();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+     
+    
+    }
+    
+    
     
     public void disconnectFromDatabase()
     {
