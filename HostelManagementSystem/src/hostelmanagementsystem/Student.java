@@ -5,6 +5,7 @@
  */
 package hostelmanagementsystem;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigInteger;
@@ -52,7 +53,7 @@ public class Student extends JFrame{
     
       setVisible(true);
       
-      setBounds(0, 0, 1000, 800);
+      setBounds(0, 0, 900, 660);
       
       setName("mainFrame");
       
@@ -62,61 +63,77 @@ public class Student extends JFrame{
       
       
      JPanel Registration = new JPanel();
-     
+     Registration.setBackground(new Color(0,199,0));
      add(Registration);
      
      Registration.setLayout(null);
      
+     
+     JLabel title = new JLabel();
+    title .setBounds(250, 0, 500, 50);
+     title .setText("Student Registration Form");
+      title.setFont(title.getFont().deriveFont(25f));
+      title.setForeground(Color.white);
+     Registration.add(title);
+     
      JLabel nameLabel = new JLabel();
-     nameLabel.setBounds(200, 50, 100, 100);
+     nameLabel.setBounds(200, 50, 200, 100);
+     nameLabel.setFont(nameLabel.getFont().deriveFont(15f));
      nameLabel.setText("Name");
      
      JTextField nameField = new JTextField();
-      nameField.setBounds(300, 85, 200, 30);
+      nameField.setBounds(400, 85, 200, 30);
       
       
      JLabel f_nameLabel = new JLabel();
      f_nameLabel.setText("Father Name");
+    f_nameLabel.setFont(f_nameLabel.getFont().deriveFont(15f));
      f_nameLabel.setBounds(200, 100, 100, 100);
      JTextField f_nameField= new JTextField();
-     f_nameField.setBounds(300, 135, 200, 30);
+     f_nameField.setBounds(400, 135, 200, 30);
      
      
      JLabel cnicLabel = new JLabel();
      cnicLabel.setText("CNIC No");
+    cnicLabel .setFont(cnicLabel .getFont().deriveFont(15f));
       cnicLabel.setBounds(200, 150, 100, 100);
      JTextField cnicField = new JTextField();
-      cnicField.setBounds(300, 185, 200, 30);
+      cnicField.setBounds(400, 185, 200, 30);
       
      JLabel dobLabel = new JLabel();
       dobLabel.setBounds(200, 200, 100, 100);
      dobLabel.setText("Date of Birth");
+      dobLabel.setFont( dobLabel.getFont().deriveFont(15f));
      JTextField dobField = new JTextField();
-     dobField.setBounds(300, 235, 200, 30);
+     dobField.setBounds(400, 235, 200, 30);
      
      
      JLabel prevEducationLabel = new JLabel();
-      prevEducationLabel.setBounds(200, 250, 100, 100);
+      prevEducationLabel.setBounds(200, 250, 200, 100);
      prevEducationLabel.setText("Education Level");
+     prevEducationLabel.setFont(prevEducationLabel.getFont().deriveFont(15f));
      JTextField prevEducationField = new JTextField();
-      prevEducationField.setBounds(300, 285, 200, 30);
+      prevEducationField.setBounds(400, 285, 200, 30);
       
       
      JLabel prevCollegeLabel = new JLabel();
      prevCollegeLabel.setBounds(200, 300, 100, 100);
      prevCollegeLabel.setText("College Name");
+     prevCollegeLabel.setFont(prevCollegeLabel.getFont().deriveFont(15f));
      JTextField prevCollegeField = new JTextField();
-     prevCollegeField.setBounds(300, 335, 200, 30);
+     prevCollegeField.setBounds(400, 335, 200, 30);
      
+
      JLabel securityFeeLabel = new JLabel();
      securityFeeLabel.setBounds(200, 350, 100, 100);
      securityFeeLabel.setText("Security Fee");
      JTextField securityFeeField = new JTextField();
-     securityFeeField.setBounds(300, 385, 200, 30);
-     
+     securityFeeField.setBounds(400, 385, 200, 30);
+
+
      JButton submitButton = new JButton("Register");
      
-     submitButton.setBounds(300, 450, 200, 30);
+     submitButton.setBounds(450, 470, 100, 30);
       
      
      Registration.add(nameField);
@@ -144,7 +161,7 @@ public class Student extends JFrame{
      Registration.add(prevCollegeField);
      
      Registration.add(securityFeeLabel);
-     
+
      Registration.add(securityFeeField);
      
      Registration.add(submitButton);
@@ -162,6 +179,7 @@ public class Student extends JFrame{
             name = nameField.getText();
             
             fatherName = f_nameField.getText();
+            
             
             try
             {
@@ -195,8 +213,10 @@ public class Student extends JFrame{
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
         }
      
+
       String sql = "INSERT INTO `students` (`name`, `cnic`, `father_name`,`date_of_birth`, `eductionLevel`, `college_name`, `securityFee`) VALUES"
               + " ('"+name+"', '"+cnic+"', '"+fatherName+"', '"+dateOfBirth+"', '"+educationLevel+"', '"+collegeName+"','"+securityFee+"');";
+
      
         try {
             connectivity.Update_Query(sql);
