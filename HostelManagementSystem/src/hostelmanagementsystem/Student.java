@@ -7,13 +7,9 @@ package hostelmanagementsystem;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.math.BigInteger;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -190,27 +186,19 @@ public class Student extends JFrame{
        sql = "INSERT INTO `students` (`name`, `cnic`, `father_name`,`date_of_birth`, `eductionLevel`, `college_name`, `securityFee`) VALUES"
         + " ('"+name+"', '"+cnic+"', '"+fatherName+"', '"+dateOfBirth+"', '"+educationLevel+"', '"+collegeName+"','"+securityFee+"');";
 
-
+    String  displayAllSql = "Select * from students";
 
 database.DataBase connectivity = new database.DataBase();
 
 
-try {
+
     Connection connection = connectivity.getConnection();
-    connectivity.Update_Query(sql,connection);
+   // connectivity.Update_Query(sql,connection);
+    connectivity.displayAll(displayAllSql, connection);
+ 
    
-} catch (SQLException | ClassNotFoundException ex) {
-    Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
-}
-finally
-      {
-              connectivity.disconnectFromDatabase();
+     });
              
-     }
-      });
-     
-   
-     
     }
 
     /**
