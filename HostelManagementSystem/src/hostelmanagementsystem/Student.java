@@ -40,7 +40,7 @@ public class Student extends JFrame{
     
     private String collegeName;
     
-    private double marks;
+    private double securityFee;
       
     public Student()
     {
@@ -108,11 +108,11 @@ public class Student extends JFrame{
      JTextField prevCollegeField = new JTextField();
      prevCollegeField.setBounds(300, 335, 200, 30);
      
-     JLabel prevMarksLabel = new JLabel();
-     prevMarksLabel.setBounds(200, 350, 100, 100);
-     prevMarksLabel.setText("Marks");
-     JTextField prevMarksField = new JTextField();
-     prevMarksField.setBounds(300, 385, 200, 30);
+     JLabel securityFeeLabel = new JLabel();
+     securityFeeLabel.setBounds(200, 350, 100, 100);
+     securityFeeLabel.setText("Security Fee");
+     JTextField securityFeeField = new JTextField();
+     securityFeeField.setBounds(300, 385, 200, 30);
      
      JButton submitButton = new JButton("Register");
      
@@ -143,9 +143,9 @@ public class Student extends JFrame{
      
      Registration.add(prevCollegeField);
      
-     Registration.add(prevMarksLabel);
+     Registration.add(securityFeeLabel);
      
-     Registration.add(prevMarksField);
+     Registration.add(securityFeeField);
      
      Registration.add(submitButton);
      
@@ -177,7 +177,7 @@ public class Student extends JFrame{
              
              collegeName =    prevCollegeField.getText();
              
-             marks  =   Double.parseDouble(prevMarksField.getText());
+                    setSecurityFee(Double.parseDouble(securityFeeField.getText()));
              
             }
             catch(NumberFormatException nfe )
@@ -195,7 +195,8 @@ public class Student extends JFrame{
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
         }
      
-      String sql = "INSERT INTO 'students' (name,cms,cnic,father_name,date_of_birth,education_level,college_name,marks) VALUES (name,cnic,fatherName,dateOFBirth,educationLevel,collegeName,marks) ";
+      String sql = "INSERT INTO `students` (`name`, `cnic`, `father_name`,`date_of_birth`, `eductionLevel`, `college_name`, `securityFee`) VALUES"
+              + " ('"+name+"', '"+cnic+"', '"+fatherName+"', '"+dateOfBirth+"', '"+educationLevel+"', '"+collegeName+"','"+securityFee+"');";
      
         try {
             connectivity.Update_Query(sql);
@@ -214,6 +215,7 @@ public class Student extends JFrame{
     /**
      * @return the name
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -296,18 +298,20 @@ public class Student extends JFrame{
     }
 
     /**
-     * @return the marks
+     * @return the securityFee
      */
-    public double getMarks() {
-        return marks;
+    public double getSecurityFee() {
+        return securityFee;
     }
 
     /**
-     * @param marks the marks to set
+     * @param securityFee the securityFee to set
      */
-    public void setMarks(double marks) {
-        this.marks = marks;
+    public void setSecurityFee(double securityFee) {
+        this.securityFee = securityFee;
     }
+
+
         
           
     
