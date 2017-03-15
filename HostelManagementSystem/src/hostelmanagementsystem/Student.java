@@ -163,6 +163,7 @@ public class Student extends JFrame{
      Registration.add(securityFeeLabel);
 
      Registration.add(securityFeeField);
+
      
      Registration.add(submitButton);
      
@@ -212,12 +213,12 @@ public class Student extends JFrame{
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
         }
-     
+
 
       String sql = "INSERT INTO `students` (`name`, `cnic`, `father_name`,`date_of_birth`, `eductionLevel`, `college_name`, `securityFee`) VALUES"
               + " ('"+name+"', '"+cnic+"', '"+fatherName+"', '"+dateOfBirth+"', '"+educationLevel+"', '"+collegeName+"','"+securityFee+"');";
 
-     
+
         try {
             connectivity.Update_Query(sql);
         } catch (SQLException | ClassNotFoundException ex) {
