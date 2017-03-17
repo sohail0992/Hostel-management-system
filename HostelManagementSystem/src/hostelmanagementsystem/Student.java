@@ -33,7 +33,7 @@ public class Student extends JFrame{
     
     private String fatherName;
     
-    private BigInteger  cnic;
+    private double  cnic;
     
     private Date dateOfBirth;
     
@@ -182,7 +182,7 @@ public class Student extends JFrame{
             
             try
             {
-            cnic = cnic.add(new BigInteger(cnicField.getText()));
+            cnic =  Double.parseDouble(cnicField.getText());
           
              try {
                     dateOfBirth = formatter.parse(dobField.getText());
@@ -212,7 +212,7 @@ public class Student extends JFrame{
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
         }
      
-      String sql = "INSERT INTO 'students' (name,father_name,cnic,,date_of_birth,education_level,college_name,marks) VALUES (name,fatherName,cnic,dateOFBirth,educationLevel,collegeName,security Fee) ";
+      String sql = "INSERT INTO 'students' (name,father_name,cnic,,date_of_birth,education_level,college_name,marks) VALUES (hhh,fatherName,cnic,dateOFBirth,educationLevel,collegeName,security Fee) ";
      
         try {
             connectivity.Update_Query(sql);
