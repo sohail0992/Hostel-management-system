@@ -151,7 +151,6 @@ public class DataBase {
         }
         catch(SQLException sqlException)
         {
-            sqlException.printStackTrace();
         } 
         
         finally

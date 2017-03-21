@@ -7,6 +7,7 @@ package hostelmanagementsystem;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.util.Date;
@@ -39,9 +40,10 @@ public class Student extends JFrame{
     
     private double securityFee;
       
+    
     public Student()
     {
-                initUI();
+      initUI();    
     }
     
     private void initUI()
@@ -58,6 +60,7 @@ public class Student extends JFrame{
       setDefaultCloseOperation(EXIT_ON_CLOSE);
       
       
+      
      JPanel Registration = new JPanel();
      Registration.setBackground(new Color(0,199,0));
      add(Registration);
@@ -66,12 +69,21 @@ public class Student extends JFrame{
      
      
      JLabel title = new JLabel();
-    title .setBounds(250, 0, 500, 50);
+    title .setBounds(330, 0, 500, 50);
      title .setText("Student Registration Form");
       title.setFont(title.getFont().deriveFont(25f));
       title.setForeground(Color.white);
      Registration.add(title);
      
+     
+     JButton backButton  = new JButton("Back");
+     backButton.setBounds(10, 10, 100, 30); 
+     backButton.setFont(backButton.getFont().deriveFont(16f));
+     
+      JButton homeButton  = new JButton("Home");
+     homeButton.setBounds(760, 10, 100, 30); 
+     homeButton.setFont(homeButton.getFont().deriveFont(16f));
+
      JLabel nameLabel = new JLabel();
      nameLabel.setBounds(200, 50, 200, 100);
      nameLabel.setFont(nameLabel.getFont().deriveFont(15f));
@@ -129,9 +141,19 @@ public class Student extends JFrame{
 
 
      JButton submitButton = new JButton("Register");
+     submitButton.setBounds(350, 480, 130, 30);
+     submitButton.setFont(submitButton.getFont().deriveFont(16f));
      
-     submitButton.setBounds(450, 470, 100, 30);
+     JButton exitButton = new JButton("Exit");
+     exitButton.setBounds(760, 590, 100, 30);
+     exitButton.setFont(exitButton.getFont().deriveFont(16f));
+     
+     
+     
+     
+     Registration.add(homeButton);
       
+     Registration.add(backButton);
      
      Registration.add(nameField);
      
@@ -160,14 +182,29 @@ public class Student extends JFrame{
      Registration.add(securityFeeLabel);
 
      Registration.add(securityFeeField);
-
      
      Registration.add(submitButton);
      
+     Registration.add(exitButton);
+    
      setVisible(true);
      
+     homeButton.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              Student.this.setVisible(false);
+              mainScreen obj = new mainScreen();
+              obj.setVisible(true);
+          }
+      });
      
      
+     
+     backButton.addActionListener((ActionEvent e) -> {
+         this.setVisible(false);
+         mainScreen obj = new mainScreen();
+         obj.setVisible(true);
+      });
      
      submitButton.addActionListener((ActionEvent e) -> {
          // DateFormat df = new SimpleDateFormat("MM/dd/yyyy");

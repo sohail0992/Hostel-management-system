@@ -15,11 +15,11 @@ public class HostelManagementSystem {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
        mainScreen msObj = new mainScreen();
-      
-      msObj.setVisible(true);
+       msObj.setVisible(true);
        
       }
     
