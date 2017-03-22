@@ -10,7 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigInteger;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -105,6 +111,7 @@ public class Student extends JFrame{
      cnicLabel.setText("CNIC No");
     cnicLabel .setFont(cnicLabel .getFont().deriveFont(15f));
       cnicLabel.setBounds(200, 150, 100, 100);
+      
      JTextField cnicField = new JTextField();
       cnicField.setBounds(400, 185, 200, 30);
       
@@ -112,6 +119,7 @@ public class Student extends JFrame{
       dobLabel.setBounds(200, 200, 100, 100);
      dobLabel.setText("Date of Birth");
       dobLabel.setFont( dobLabel.getFont().deriveFont(15f));
+      
      JTextField dobField = new JTextField();
      dobField.setBounds(400, 235, 200, 30);
      
@@ -120,6 +128,7 @@ public class Student extends JFrame{
       educationLabel.setBounds(200, 250, 200, 100);
      educationLabel.setText("Education Level");
      educationLabel.setFont(educationLabel.getFont().deriveFont(15f));
+     
      JTextField educationField = new JTextField();
       educationField.setBounds(400, 285, 200, 30);
       
@@ -128,6 +137,7 @@ public class Student extends JFrame{
      college.setBounds(200, 300, 100, 100);
      college.setText("College Name");
      college.setFont(college.getFont().deriveFont(15f));
+     
      JTextField collegeField = new JTextField();
      collegeField.setBounds(400, 335, 200, 30);
      
@@ -136,6 +146,7 @@ public class Student extends JFrame{
      securityFeeLabel.setBounds(200, 350, 100, 100);
      securityFeeLabel.setText("Security Fee");
      securityFeeLabel.setFont(securityFeeLabel.getFont().deriveFont(15f));
+     
      JTextField securityFeeField = new JTextField();
      securityFeeField.setBounds(400, 385, 200, 30);
 
@@ -187,154 +198,63 @@ public class Student extends JFrame{
      
      Registration.add(exitButton);
     
-     setVisible(true);
+     this.setVisible(true);
      
-     homeButton.addActionListener(new ActionListener() {
+     
+     
+     
+        submitButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-              Student.this.setVisible(false);
-              mainScreen obj = new mainScreen();
-              obj.setVisible(true);
+              try {
+                  String dateFormat = "21/3/2017";
+                  
+                  
+                  DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                  name = nameField.getText();
+                  fatherName = f_nameField.getText();
+                  educationLevel = educationField.getText();
+                  collegeName =    collegeField.getText();
+                  dateOfBirth = formatter.parse(dobField.getText());
+                  dateFormat =  formatter.format(dateOfBirth);
+                  cnic = cnic.add(new BigInteger(cnicField.getText()));
+                  securityFee = Double.parseDouble(securityFeeField.getText());
+                  
+                  
+                  
+                  sql = "INSERT INTO `students` (`name`, `cnic`, `father_name`,`date_of_birth`, `eductionLevel`, `college_name`, `securityFee`) VALUES"
+                          + " ('"+name+"', '"+cnic+"', '"+fatherName+"', '"+dateOfBirth+"', '"+educationLevel+"', '"+collegeName+"','"+securityFee+"');";
+                  //String  displayAllSql = "Select * from students";
+                  database.DataBase connectivity = new database.DataBase();
+                  Connection connection = connectivity.getConnection();
+                  connectivity.Update_Query(sql,connection);
+                 // connectivity.displayAll(displayAllSql, connection);
+              } catch (ParseException | SQLException | ClassNotFoundException ex) {
+                  Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+              }
           }
       });
-     
-     
-     
-     backButton.addActionListener((ActionEvent e) -> {
-         this.setVisible(false);
-         mainScreen obj = new mainScreen();
-         obj.setVisible(true);
-      });
-     
-     submitButton.addActionListener((ActionEvent e) -> {
-         // DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-         //      SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-         name = nameField.getText();
-         fatherName = f_nameField.getText();
-         educationLevel = educationField.getText();
-         collegeName =    collegeField.getText();
-//            cnic = cnic.add(new BigInteger(cnicField.getText()));
-//          dateOfBirth = formatter.parse(dobField.getText());
-
-//   securityFee = Double.parseDouble(securityFeeField.getText());
-
-
-
-       sql = "INSERT INTO `students` (`name`, `cnic`, `father_name`,`date_of_birth`, `eductionLevel`, `college_name`, `securityFee`) VALUES"
-        + " ('"+name+"', '"+cnic+"', '"+fatherName+"', '"+dateOfBirth+"', '"+educationLevel+"', '"+collegeName+"','"+securityFee+"');";
-
-    String  displayAllSql = "Select * from students";
-
-database.DataBase connectivity = new database.DataBase();
-
-
-
-    Connection connection = connectivity.getConnection();
-   // connectivity.Update_Query(sql,connection);
-    connectivity.displayAll(displayAllSql, connection);
- 
-   
-     });
+        
+        
+        
+          homeButton.addActionListener(new ActionListener() {
+                  @Override
+                  public void actionPerformed(ActionEvent e1) {
+                      setVisible(false);
+                      mainScreen obj = new mainScreen();
+                      obj.setVisible(true);
+                  }
+              }); 
              
-    }
-
-    /**
-     * @return the name
-     */
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return the fatherName
-     */
-    public String getFatherName() {
-        return fatherName;
-    }
-
-    /**
-     * @param fatherName the fatherName to set
-     */
-    public void setFatherName(String fatherName) {
-        this.fatherName = fatherName;
-    }
-
-    /**
-     * @return the cnic
-     */
-    public BigInteger getCnic() {
-        return cnic;
-    }
-
-    /**
-     * @param cnic the cnic to set
-     */
-    public void setCnic(BigInteger cnic) {
-        this.cnic = cnic;
-    }
-
-    /**
-     * @return the dateOfBirth
-     */
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    /**
-     * @param dateOfBirth the dateOfBirth to set
-     */
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    /**
-     * @return the educationLevel
-     */
-    public String getEducationLevel() {
-        return educationLevel;
-    }
-
-    /**
-     * @param educationLevel the educationLevel to set
-     */
-    public void setEducationLevel(String educationLevel) {
-        this.educationLevel = educationLevel;
-    }
-
-    /**
-     * @return the collegeName
-     */
-    public String getCollegeName() {
-        return collegeName;
-    }
-
-    /**
-     * @param collegeName the collegeName to set
-     */
-    public void setCollegeName(String collegeName) {
-        this.collegeName = collegeName;
-    }
-
-    /**
-     * @return the securityFee
-     */
-    public double getSecurityFee() {
-        return securityFee;
-    }
-
-    /**
-     * @param securityFee the securityFee to set
-     */
-    public void setSecurityFee(double securityFee) {
-        this.securityFee = securityFee;
+              backButton.addActionListener(new ActionListener() {
+                  @Override
+                  public void actionPerformed(ActionEvent ee) {
+                      Student.this.setVisible(false);
+                      mainScreen obj = new mainScreen();
+                      obj.setVisible(true);
+                  }
+              });
+             
     }
 
 

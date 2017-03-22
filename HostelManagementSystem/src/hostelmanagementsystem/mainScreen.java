@@ -178,7 +178,7 @@ public class mainScreen extends JFrame {
       
       
               
-      setVisible(true);
+      this.setVisible(true);
   
      
       //action listener
@@ -206,11 +206,9 @@ public class mainScreen extends JFrame {
     
 
       join.addActionListener((ActionEvent e) -> {
-          Student stdObj = new Student();
-          
-          setVisible(false);
-          
-          stdObj.setVisible(true);
+          this.setVisible(false);
+          Student stdObj = new Student();  
+      
       });
       
     
