@@ -7,15 +7,9 @@ package hostelmanagementsystem;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.math.BigInteger;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -41,7 +35,9 @@ public class Student extends JFrame{
     
     private String collegeName;
     
-    private double marks;
+    private String sql;
+    
+    private double securityFee;
       
     public Student()
     {
@@ -51,7 +47,7 @@ public class Student extends JFrame{
     private void initUI()
     {
     
-      setVisible(true);
+     
       
       setBounds(0, 0, 900, 660);
       
@@ -65,7 +61,7 @@ public class Student extends JFrame{
      JPanel Registration = new JPanel();
      Registration.setBackground(new Color(0,199,0));
      add(Registration);
-     
+      
      Registration.setLayout(null);
      
      
@@ -108,6 +104,7 @@ public class Student extends JFrame{
      dobField.setBounds(400, 235, 200, 30);
      
      
+<<<<<<< HEAD
      JLabel prevEducationLabel = new JLabel();
       prevEducationLabel.setBounds(200, 250, 200, 100);
      prevEducationLabel.setText("Education Level");
@@ -129,7 +126,32 @@ public class Student extends JFrame{
     sec.setFont(sec.getFont().deriveFont(15f));
      JTextField prevMarksField = new JTextField();
      prevMarksField.setBounds(400, 385, 200, 30);
+=======
+     JLabel educationLabel = new JLabel();
+      educationLabel.setBounds(200, 250, 200, 100);
+     educationLabel.setText("Education Level");
+     educationLabel.setFont(educationLabel.getFont().deriveFont(15f));
+     JTextField educationField = new JTextField();
+      educationField.setBounds(400, 285, 200, 30);
+      
+      
+     JLabel college = new JLabel();
+     college.setBounds(200, 300, 100, 100);
+     college.setText("College Name");
+     college.setFont(college.getFont().deriveFont(15f));
+     JTextField collegeField = new JTextField();
+     collegeField.setBounds(400, 335, 200, 30);
+>>>>>>> 904c802cac85f4251423d886bf08caa299ecb75c
      
+
+     JLabel securityFeeLabel = new JLabel();
+     securityFeeLabel.setBounds(200, 350, 100, 100);
+     securityFeeLabel.setText("Security Fee");
+     securityFeeLabel.setFont(securityFeeLabel.getFont().deriveFont(15f));
+     JTextField securityFeeField = new JTextField();
+     securityFeeField.setBounds(400, 385, 200, 30);
+
+
      JButton submitButton = new JButton("Register");
      
      submitButton.setBounds(450, 470, 100, 30);
@@ -151,22 +173,31 @@ public class Student extends JFrame{
      
      Registration.add(cnicField);
      
-     Registration.add(prevEducationLabel);
+     Registration.add(educationLabel);
      
-     Registration.add(prevEducationField);
+     Registration.add(educationField);
      
-     Registration.add(prevCollegeLabel);
+     Registration.add(college);
      
-     Registration.add(prevCollegeField);
+     Registration.add(collegeField);
      
+<<<<<<< HEAD
      Registration.add(sec);
      
      Registration.add(prevMarksField);
+=======
+     Registration.add(securityFeeLabel);
+
+     Registration.add(securityFeeField);
+
+>>>>>>> 904c802cac85f4251423d886bf08caa299ecb75c
      
      Registration.add(submitButton);
      
+     setVisible(true);
      
      
+<<<<<<< HEAD
      submitButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
@@ -213,24 +244,46 @@ public class Student extends JFrame{
         }
      
       String sql = "INSERT INTO 'students' (name,father_name,cnic,,date_of_birth,education_level,college_name,marks) VALUES (hhh,fatherName,cnic,dateOFBirth,educationLevel,collegeName,security Fee) ";
+=======
      
-        try {
-            connectivity.Update_Query(sql);
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
-        }
+>>>>>>> 904c802cac85f4251423d886bf08caa299ecb75c
+     
+     submitButton.addActionListener((ActionEvent e) -> {
+         // DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+         //      SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+         name = nameField.getText();
+         fatherName = f_nameField.getText();
+         educationLevel = educationField.getText();
+         collegeName =    collegeField.getText();
+//            cnic = cnic.add(new BigInteger(cnicField.getText()));
+//          dateOfBirth = formatter.parse(dobField.getText());
+
+//   securityFee = Double.parseDouble(securityFeeField.getText());
+
+
+
+       sql = "INSERT INTO `students` (`name`, `cnic`, `father_name`,`date_of_birth`, `eductionLevel`, `college_name`, `securityFee`) VALUES"
+        + " ('"+name+"', '"+cnic+"', '"+fatherName+"', '"+dateOfBirth+"', '"+educationLevel+"', '"+collegeName+"','"+securityFee+"');";
+
+    String  displayAllSql = "Select * from students";
+
+database.DataBase connectivity = new database.DataBase();
+
+
+
+    Connection connection = connectivity.getConnection();
+   // connectivity.Update_Query(sql,connection);
+    connectivity.displayAll(displayAllSql, connection);
+ 
    
+     });
              
-          }
-      });
-     
-   
-     
     }
 
     /**
      * @return the name
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -313,18 +366,20 @@ public class Student extends JFrame{
     }
 
     /**
-     * @return the marks
+     * @return the securityFee
      */
-    public double getMarks() {
-        return marks;
+    public double getSecurityFee() {
+        return securityFee;
     }
 
     /**
-     * @param marks the marks to set
+     * @param securityFee the securityFee to set
      */
-    public void setMarks(double marks) {
-        this.marks = marks;
+    public void setSecurityFee(double securityFee) {
+        this.securityFee = securityFee;
     }
+
+
         
           
     

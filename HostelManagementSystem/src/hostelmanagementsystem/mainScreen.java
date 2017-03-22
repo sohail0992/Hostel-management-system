@@ -5,19 +5,30 @@
  */
 package hostelmanagementsystem;
 
+<<<<<<< HEAD
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+=======
+
+import java.awt.Color;
+
+>>>>>>> 904c802cac85f4251423d886bf08caa299ecb75c
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+<<<<<<< HEAD
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+=======
+
+import java.io.IOException;
+
+>>>>>>> 904c802cac85f4251423d886bf08caa299ecb75c
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
@@ -40,9 +51,13 @@ public class mainScreen extends JFrame {
     {
       
         
+<<<<<<< HEAD
         
       setVisible(true);
   
+=======
+
+>>>>>>> 904c802cac85f4251423d886bf08caa299ecb75c
       setBounds(0, 0, 900, 660);
       
       setName("mainFrame");
@@ -70,7 +85,11 @@ public class mainScreen extends JFrame {
       label.setFont(label.getFont().deriveFont(29.0f));
       label.setForeground(Color.white);
       label.setText("Welcome To Kashmir Boys Hostle");
+<<<<<<< HEAD
        label.setVerticalAlignment(label.BOTTOM);
+=======
+       label.setVerticalAlignment(JLabel.BOTTOM);
+>>>>>>> 904c802cac85f4251423d886bf08caa299ecb75c
        label.setBounds(230,5, 500,60);
       container.add(panelLabel);
       
@@ -156,12 +175,16 @@ public class mainScreen extends JFrame {
       
       footerLabel.setFont(footerLabel.getFont().deriveFont(17f));
       
-      footerLabel.setVerticalTextPosition(footerLabel.BOTTOM);
+      footerLabel.setVerticalTextPosition(JLabel.BOTTOM);
       
-      footerLabel.setVerticalAlignment(footerLabel.BOTTOM);
+      footerLabel.setVerticalAlignment(JLabel.BOTTOM);
       
       footer.add(footerLabel);
       
+      
+              
+      setVisible(true);
+  
      
       //action listener
       
@@ -183,36 +206,24 @@ public class mainScreen extends JFrame {
     
     
 
-      facilities.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-                        }
+      facilities.addActionListener((ActionEvent e) -> {
       });
       
     
     
 
-      join.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-             
-              
-             Student stdObj = new Student();
-             
-             setVisible(false);
-             
-             stdObj.setVisible(true);
-              
-             }
+      join.addActionListener((ActionEvent e) -> {
+          Student stdObj = new Student();
+          
+          setVisible(false);
+          
+          stdObj.setVisible(true);
       });
       
     
     
 
-      payments.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-                        }
+      payments.addActionListener((ActionEvent e) -> {
       });
       
     }
