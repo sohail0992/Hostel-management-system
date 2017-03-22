@@ -34,7 +34,7 @@ public class Student extends JFrame{
     
     private String fatherName;
     
-    private BigInteger  cnic;
+    private int  cnic;
     
     private Date dateOfBirth;
     
@@ -156,7 +156,7 @@ public class Student extends JFrame{
      submitButton.setFont(submitButton.getFont().deriveFont(16f));
      
      JButton exitButton = new JButton("Exit");
-     exitButton.setBounds(760, 590, 100, 30);
+     exitButton.setBounds(760, 570, 100, 30);
      exitButton.setFont(exitButton.getFont().deriveFont(16f));
      
      
@@ -201,7 +201,18 @@ public class Student extends JFrame{
      this.setVisible(true);
      
      
-     
+       exitButton.addActionListener(new ActionListener()
+       
+       {
+           @Override
+           public void actionPerformed(ActionEvent e)
+           {
+               System.exit(0);
+             
+           }
+       }
+       
+       );
      
         submitButton.addActionListener(new ActionListener() {
           @Override
@@ -217,18 +228,18 @@ public class Student extends JFrame{
                   collegeName =    collegeField.getText();
                   dateOfBirth = formatter.parse(dobField.getText());
                   dateFormat =  formatter.format(dateOfBirth);
-                  cnic = cnic.add(new BigInteger(cnicField.getText()));
+                  cnic = Integer.parseInt(cnicField.getText());
                   securityFee = Double.parseDouble(securityFeeField.getText());
                   
                   
                   
-                  sql = "INSERT INTO `students` (`name`, `cnic`, `father_name`,`date_of_birth`, `eductionLevel`, `college_name`, `securityFee`) VALUES"
-                          + " ('"+name+"', '"+cnic+"', '"+fatherName+"', '"+dateOfBirth+"', '"+educationLevel+"', '"+collegeName+"','"+securityFee+"');";
-                  //String  displayAllSql = "Select * from students";
+                  sql = "INSERT INTO `students` (`name`,`father_name`, `cnic`, `date_of_birth`, `eductionLevel`, `college_name`, `securityFee`) VALUES"
+                          + " ('"+name+"', '"+fatherName+"',  '"+cnic+"', '"+dateOfBirth+"', '"+educationLevel+"', '"+collegeName+"','"+securityFee+"');";
+                  String  displayAllSql = "SELECT name , father_name , cnic , date_of_birth , eductionLevel ,college_name ,securityFee FROM students";
                   database.DataBase connectivity = new database.DataBase();
                   Connection connection = connectivity.getConnection();
                   connectivity.Update_Query(sql,connection);
-                 // connectivity.displayAll(displayAllSql, connection);
+                 connectivity.displayAll(displayAllSql, connection);
               } catch (ParseException | SQLException | ClassNotFoundException ex) {
                   Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
               }
