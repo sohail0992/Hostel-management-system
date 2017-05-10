@@ -27,7 +27,7 @@ import javax.swing.JTextField;
  *
  * @author Sohail
  */
-public class Student extends JFrame{
+public class Register extends JFrame{
    
     
     private String name;
@@ -47,7 +47,7 @@ public class Student extends JFrame{
     private double securityFee;
       
     
-    public Student()
+    public Register()
     {
       initUI();    
     }
@@ -82,7 +82,9 @@ public class Student extends JFrame{
      Registration.add(title);
      
      
-   
+     JButton backButton  = new JButton("Back");
+     backButton.setBounds(10, 10, 100, 30); 
+     backButton.setFont(backButton.getFont().deriveFont(16f));
      
       JButton homeButton  = new JButton("Home");
      homeButton.setBounds(760, 10, 100, 30); 
@@ -157,12 +159,10 @@ public class Student extends JFrame{
      exitButton.setBounds(760, 570, 100, 30);
      exitButton.setFont(exitButton.getFont().deriveFont(16f));
      
-       JButton backButton  = new JButton("Back");
-     backButton.setBounds(20, 570, 100, 30); 
-     backButton.setFont(backButton.getFont().deriveFont(16f));
      
      
-    // Registration.add(homeButton);
+     
+     Registration.add(homeButton);
       
      Registration.add(backButton);
      
@@ -229,9 +229,8 @@ public class Student extends JFrame{
                   Connection connection = connectivity.getConnection();
                   connectivity.Update_Query(sql,connection);
                  connectivity.displayAll(displayAllSql, connection);
-                 connection.close();
               } catch (ParseException | SQLException | ClassNotFoundException ex) {
-                  Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+                  Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
               }
           }
       });
@@ -250,20 +249,12 @@ public class Student extends JFrame{
               backButton.addActionListener(new ActionListener() {
                   @Override
                   public void actionPerformed(ActionEvent ee) {
-                      Student.this.setVisible(false);
+                      Register.this.setVisible(false);
                       mainScreen obj = new mainScreen();
                       obj.setVisible(true);
                   }
               });
              
-              
-              exitButton.addActionListener(new ActionListener() {
-                  @Override
-                  public void actionPerformed(ActionEvent e1) {
-                     System.exit(0);
-                      
-                  }
-              });
     }
 
 

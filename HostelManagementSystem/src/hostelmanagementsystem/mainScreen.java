@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
@@ -84,29 +85,33 @@ public class mainScreen extends JFrame {
       
       
       
-      JPanel imagepanel = new JPanel();
+     
       
-      imagepanel.setBounds(200,100, 700,420);
-       
-      imagepanel.setBackground(new Color(199,199,199));
+       ImageIcon icon = new ImageIcon("m2.jpg"); 
       
-       container.add(imagepanel);
+     JLabel lb = new JLabel(); 
+     lb.setBounds(200,100, 800,420);
+     
+           lb.setIcon(icon); 
+         
+       container.add(lb);
       
-      // image 
-        //BufferedImage myPicture = ImageIO.read(new File("path-to-file"));
-         //JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-      // imagepanel.add(picLabel);
+     
       
       JPanel panelButton = new JPanel();
        
        panelButton.setLayout(null);     
      
        panelButton.setBackground(Color.green);
-     //panelButton.setSize(30,60);
+    
      
       panelButton.setBounds(0,100, 200,420);
       
       container.add(panelButton);
+      
+      
+     
+      
       
       JButton home = new JButton("Home");
       
@@ -135,7 +140,7 @@ public class mainScreen extends JFrame {
       
       panelButton.add(join);
       
-      JButton payments = new JButton("Payment");
+      JButton payments = new JButton("Menu");
       
       payments.setBounds(0, 210, 200, 70);
       
@@ -191,11 +196,6 @@ public class mainScreen extends JFrame {
       home.addActionListener((ActionEvent e) -> {
       });
       
-    
-    
-    
-       rules.addActionListener((ActionEvent e) -> {
-      });
       
     
     
@@ -208,7 +208,11 @@ public class mainScreen extends JFrame {
       });
       
     
-    
+    rules.addActionListener((ActionEvent e) -> {
+          this.setVisible(false);
+          Rules Obj = new Rules();  
+      
+      });
 
       join.addActionListener((ActionEvent e) -> {
           this.setVisible(false);
@@ -216,14 +220,14 @@ public class mainScreen extends JFrame {
       
       });
       
-    
-    
 
       payments.addActionListener((ActionEvent e) -> {
+          
+          this.setVisible(false);
+     messmenu ob = new messmenu();
+     ob .setVisible(true);
       });
-      
-      
-    
+       
     
     }
     

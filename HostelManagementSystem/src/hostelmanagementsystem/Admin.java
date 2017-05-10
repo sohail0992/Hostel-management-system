@@ -5,7 +5,11 @@
  */
 package hostelmanagementsystem;
 
+import database.DataBase;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,6 +21,10 @@ import javax.swing.JTextField;
  * @author Sohail
  */
 public class Admin extends JFrame{
+    
+    private String userName;
+    
+    private String password;
     
     
     public Admin()
@@ -32,81 +40,170 @@ public class Admin extends JFrame{
         setName("Admin Login");
       
        setTitle("Great Student Hostel");
+       
+        setForeground(Color.white);
      
        setDefaultCloseOperation(EXIT_ON_CLOSE);
        
         setResizable(false);
        
            
-      JPanel loginFormButton = new JPanel();
+      JPanel loginForm = new JPanel();
         
-      loginFormButton.setLayout(null);
+      loginForm.setLayout(null);
+      
+      loginForm.setBackground(new Color(0,199,0));
+      
           
       JLabel title = new JLabel();
       
-       title .setBounds(250, 0, 500, 50);
-      
-      title .setText("Admin Login");
-      
+      title.setBounds(350, 0, 500, 50);
+      title.setText("Admin Login");
       title.setFont(title.getFont().deriveFont(25f));
-      
       title.setForeground(Color.white);
    
         
-      add(loginFormButton);
-      
-      JButton userName = new JButton("User Name");
-      
-      userName.setBounds(0, 0, 200, 70);
-      
-      userName.setFont(userName.getFont().deriveFont(18f));
+      add(loginForm);
       
      
-       JLabel userNameLabel = new JLabel();
-       
-       userNameLabel.setBounds(200, 80, 200, 100);
-       
-       userNameLabel.setFont(userNameLabel.getFont().deriveFont(15f));
+    JLabel userNameLabel = new JLabel("User Name");
+    userNameLabel.setBounds(210, 140, 200, 100);
+    userNameLabel.setFont(userNameLabel.getFont().deriveFont(15f));
      
-       userNameLabel.setText("User Name");
+      
      
-      JTextField userNameField = new JTextField();
-      userNameField.setBounds(400, 100, 200, 30);
+     JTextField userNameField = new JTextField();
+     userNameField.setBounds(400, 180, 200, 30);
       
       
      JLabel passwordLabel = new JLabel();
-     
      passwordLabel.setText("Password");
-     
      passwordLabel.setFont(passwordLabel.getFont().deriveFont(15f));
-   
-     passwordLabel.setBounds(200, 150, 100, 100);
+     passwordLabel.setBounds(210, 230, 100, 100);
      
      JTextField passwordField= new JTextField();
-     
-     passwordField.setBounds(400, 250, 200, 30);
+     passwordField.setBounds(400, 265, 200, 30);
      
      JButton Login = new JButton("Login");
      
-     Login.setBounds(400, 350, 100, 30);
+     Login.setBounds(400, 390, 100, 30);
      
+     JButton back = new JButton("Back");
+     back.setBounds(30, 570, 100, 30); 
+     back.setFont(back.getFont().deriveFont(16f));
      
-      loginFormButton.add(userNameLabel);
+     JButton exit = new JButton("Exit");
+     exit.setBounds(760, 570, 100, 30);
+     exit.setFont(exit.getFont().deriveFont(16f));
+     
+      loginForm.add(userNameLabel);
       
-      loginFormButton.add(userNameField);
+      loginForm.add(userNameField);
       
-      loginFormButton.add(passwordLabel);
+      loginForm.add(passwordLabel);
       
-      loginFormButton.add(passwordField);
+      loginForm.add(passwordField);
       
-      loginFormButton.add(Login);
+      loginForm.add(Login);
       
-      loginFormButton.add(title);
+      loginForm.add(title);
+      
+      loginForm.add(back);
+      
+      loginForm.add(exit);
       
       
        setVisible(true);
+       
+       Login.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            try
+            {
+                userName = userNameField.getText();
+                password = passwordField.getText();
+                setVisible(false);
+                 manageStudents obj = new  manageStudents();
+                      obj.setVisible(true);
+             
+            }
+            catch(NumberFormatException ee)
+            {
+            }
+            }
+        });
+       
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 setVisible(false);
+                   mainScreen obj = new mainScreen();
+                      obj.setVisible(true);
+             
+            }
+        });
+       
+        
+         exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 System.exit(0);
+             
+            }
+        });
+       
+        
+      
+       
+       
+       
+       
+     
       
       
+    }
+     public boolean validateUser(String name , String pass )
+    {
+      database.DataBase db = new DataBase();
+     
+      Connection con = db.getConnection();
+      
+      String sql = "Select name, password from users where user_type = A";
+      
+
+      
+      return false;
+    
+    
+    }
+     
+
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userName;
+    }
+
+    /**
+     * @param userName the userName to set
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
     
    
