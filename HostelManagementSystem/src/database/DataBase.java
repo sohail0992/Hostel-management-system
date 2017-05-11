@@ -46,11 +46,11 @@ public class DataBase {
        
         Connection connection = getConnection();
      
-        statement  =null;
-    
         statement =   (Statement) connection.createStatement();
         
-        numberOfRows = statement.executeUpdate(query);
+        statement.executeUpdate(query);
+        
+        numberOfRows = statement.getMaxRows();
        
         return numberOfRows;
     }
@@ -79,20 +79,31 @@ public class DataBase {
     
     public Connection getConnection() 
     {
-        try {
-            Connection con = null;
-            Class.forName("com.mysql.jdbc.Driver");
+        try
+        {
+           
             try {
-                con = DriverManager.getConnection(DATABASE_URL, user, pass);
-            } catch (SQLException ex) {
+                Class.forName("com.mysql.jdbc.Driver");
+            } catch (ClassNotFoundException ex) {
                 Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
             }
-            connectedToDatabase = true;
+            
+            Connection con = DriverManager.getConnection(DATABASE_URL, user, pass);
+            
+               connectedToDatabase = true;
+            
             return con;
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
+        
         }
-       return null;
+        catch(SQLException e )
+        {
+            Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, e);
+         
+        }
+            
+       
+            
+         return null;
     }
     
     public void displayAll(String query)
