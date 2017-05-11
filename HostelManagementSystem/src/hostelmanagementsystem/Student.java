@@ -8,6 +8,9 @@ package hostelmanagementsystem;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,7 +30,7 @@ import javax.swing.JTextField;
  *
  * @author Sohail
  */
-public class Student extends JFrame{
+public class Student extends JFrame implements java.io.Serializable{
    
     
     private String name;
@@ -36,6 +39,7 @@ public class Student extends JFrame{
     
     private int  cnic;
     
+    private String dateOfBirth1;
     private Date dateOfBirth;
     
     private String educationLevel;
@@ -206,6 +210,41 @@ public class Student extends JFrame{
         submitButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
+       /*       
+      try {
+          
+          String dateFormat = "21/3/2017";
+                  
+                  
+                  DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                  name = nameField.getText();
+                  fatherName = f_nameField.getText();
+                  educationLevel = educationField.getText();
+                  collegeName =    collegeField.getText();
+                // dateOfBirth1 = dobField.getText();
+                  //dateFormat =  formatter.format(dateOfBirth);
+                  cnic = Integer.parseInt(cnicField.getText());
+                  //securityFee = Double.parseDouble(securityFeeField.getText());
+            
+                  Student sdd = new Student();
+                  
+         FileOutputStream fileOut =
+         new FileOutputStream("m");
+         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+         out.writeObject(sdd);
+         out.close();
+         fileOut.close();
+         System.out.printf("Serialized data is saved in exp");
+      }catch(IOException i) {
+         i.printStackTrace();
+      }       
+              
+        */      
+              
+              
+              
+              
+              
               try {
                   String dateFormat = "21/3/2017";
                   
@@ -233,6 +272,7 @@ public class Student extends JFrame{
               } catch (ParseException | SQLException | ClassNotFoundException ex) {
                   Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
               }
+                      
           }
       });
         

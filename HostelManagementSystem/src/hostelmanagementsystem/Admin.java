@@ -96,6 +96,13 @@ public class Admin extends JFrame{
      exit.setBounds(760, 570, 100, 30);
      exit.setFont(exit.getFont().deriveFont(16f));
      
+      JLabel security = new JLabel("incorrect username  or password");
+    security.setBounds(250, 50, 300, 100);
+    security.setFont(security.getFont().deriveFont(15f));
+     loginForm.add(security);
+     
+     
+     
       loginForm.add(userNameLabel);
       
       loginForm.add(userNameField);
@@ -112,7 +119,7 @@ public class Admin extends JFrame{
       
       loginForm.add(exit);
       
-      
+      security.setVisible(false);
        setVisible(true);
        
        Login.addActionListener(new ActionListener() {
@@ -122,9 +129,17 @@ public class Admin extends JFrame{
             {
                 userName = userNameField.getText();
                 password = passwordField.getText();
+                if(userName.equals("waheed") && password.equals("12345"))
+                {
                 setVisible(false);
                  manageStudents obj = new  manageStudents();
                       obj.setVisible(true);
+                  }else
+                {
+                    
+                   security.setVisible(true);
+     
+                }
              
             }
             catch(NumberFormatException ee)
@@ -152,14 +167,6 @@ public class Admin extends JFrame{
             }
         });
        
-        
-      
-       
-       
-       
-       
-     
-      
       
     }
      public boolean validateUser(String name , String pass )
