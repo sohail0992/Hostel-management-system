@@ -19,7 +19,8 @@ public class HostelManagementSystem {
      */
     public static void main(String[] args) throws IOException {
 
-       mainScreen msObj = new mainScreen();
+       mainScreen msObj;
+        msObj = new mainScreen();
 
        
       }

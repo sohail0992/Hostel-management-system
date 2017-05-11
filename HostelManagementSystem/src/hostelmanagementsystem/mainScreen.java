@@ -42,8 +42,6 @@ public class mainScreen extends JFrame {
       setBounds(0, 0, 900, 660);
       
       setName("mainFrame");
-      
-      setTitle("Great Student Hostel");
      
       setDefaultCloseOperation(EXIT_ON_CLOSE);
     
@@ -72,7 +70,7 @@ public class mainScreen extends JFrame {
       
       label.setForeground(Color.white);
       
-      label.setText("Welcome To Kashmir Boys Hostle");
+      label.setText("Welcome To Kashmir Boys Hostel");
 
        
       label.setVerticalAlignment(JLabel.BOTTOM);
@@ -214,10 +212,14 @@ public class mainScreen extends JFrame {
       
       });
 
-      join.addActionListener((ActionEvent e) -> {
-          this.setVisible(false);
-          Student stdObj = new Student();  
-      stdObj.setVisible(true);
+      join.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              mainScreen.this.setVisible(false);
+              Student stdObj;
+              stdObj = Student.getStudent();
+          
+          }
       });
       
 

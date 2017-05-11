@@ -41,12 +41,14 @@ public class DataBase {
     
     private final String pass = "";
     
-    public int Update_Query(String query,Connection con) throws SQLException, ClassNotFoundException
+    public int Update_Query(String query) throws SQLException, ClassNotFoundException
     {
+       
+        Connection connection = getConnection();
      
         statement  =null;
     
-        statement = con.createStatement();
+        statement =   (Statement) connection.createStatement();
         
         numberOfRows = statement.executeUpdate(query);
        
@@ -55,20 +57,24 @@ public class DataBase {
     
     
     
-    public void Select_Query(String query) throws SQLException, ClassNotFoundException
+    public ResultSet Select_Query(String query) throws SQLException, ClassNotFoundException
     {
+        
+        
+        Connection connection = getConnection();
        
         if(!connectedToDatabase)
         {
         throw new IllegalStateException ("Not Connected To Database");
         }
       
-        statement = null;
+        statement =  (Statement) connection.createStatement();
+          
+        statement.executeQuery(query);
+         
+        resultSet = statement.getResultSet();
         
-        resultSet = null;
-        
-        resultSet = statement.executeQuery(query);
-        
+        return resultSet;
     }
     
     public Connection getConnection() 
@@ -89,8 +95,10 @@ public class DataBase {
        return null;
     }
     
-    public void displayAll(String query,Connection connection)
+    public void displayAll(String query)
     {
+          Connection connection = getConnection();
+          
            statement = null;
            
            resultSet = null;

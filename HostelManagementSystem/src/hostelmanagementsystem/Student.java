@@ -5,13 +5,10 @@
  */
 package hostelmanagementsystem;
 
+import Thread.Threads;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -30,8 +27,11 @@ import javax.swing.JTextField;
  *
  * @author Sohail
  */
-public class Student extends JFrame implements java.io.Serializable{
-   
+public class Student extends JFrame{
+    
+    private static final  Student std = new Student();
+  
+    private int count = 0;
     
     private String name;
     
@@ -39,22 +39,32 @@ public class Student extends JFrame implements java.io.Serializable{
     
     private int  cnic;
     
-    private String dateOfBirth1;
     private Date dateOfBirth;
     
     private String educationLevel;
     
     private String collegeName;
     
-    private String sql;
     
     private double securityFee;
       
     
-    public Student()
+    private Student()
     {
+      count++;
+      if(count == 1)
+      {
       initUI();    
+      }
+     }
+    
+    
+    public static Student getStudent()
+    {
+         return std;
     }
+    
+    
     
     private void initUI()
     {
@@ -86,7 +96,9 @@ public class Student extends JFrame implements java.io.Serializable{
      Registration.add(title);
      
      
-   
+     JButton backButton  = new JButton("Back");
+     backButton.setBounds(10, 10, 100, 30); 
+     backButton.setFont(backButton.getFont().deriveFont(16f));
      
       JButton homeButton  = new JButton("Home");
      homeButton.setBounds(760, 10, 100, 30); 
@@ -161,12 +173,10 @@ public class Student extends JFrame implements java.io.Serializable{
      exitButton.setBounds(760, 570, 100, 30);
      exitButton.setFont(exitButton.getFont().deriveFont(16f));
      
-       JButton backButton  = new JButton("Back");
-     backButton.setBounds(20, 570, 100, 30); 
-     backButton.setFont(backButton.getFont().deriveFont(16f));
      
      
-    // Registration.add(homeButton);
+     
+     Registration.add(homeButton);
       
      Registration.add(backButton);
      
@@ -210,69 +220,35 @@ public class Student extends JFrame implements java.io.Serializable{
         submitButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-       /*       
-      try {
-          
-          String dateFormat = "21/3/2017";
-                  
-                  
-                  DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                  name = nameField.getText();
-                  fatherName = f_nameField.getText();
-                  educationLevel = educationField.getText();
-                  collegeName =    collegeField.getText();
-                // dateOfBirth1 = dobField.getText();
-                  //dateFormat =  formatter.format(dateOfBirth);
-                  cnic = Integer.parseInt(cnicField.getText());
-                  //securityFee = Double.parseDouble(securityFeeField.getText());
-            
-                  Student sdd = new Student();
-                  
-         FileOutputStream fileOut =
-         new FileOutputStream("m");
-         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-         out.writeObject(sdd);
-         out.close();
-         fileOut.close();
-         System.out.printf("Serialized data is saved in exp");
-      }catch(IOException i) {
-         i.printStackTrace();
-      }       
-              
-        */      
-              
-              
-              
-              
-              
               try {
                   String dateFormat = "21/3/2017";
                   
                   
                   DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                  name = nameField.getText();
-                  fatherName = f_nameField.getText();
-                  educationLevel = educationField.getText();
-                  collegeName =    collegeField.getText();
-                  dateOfBirth = formatter.parse(dobField.getText());
-                  dateFormat =  formatter.format(dateOfBirth);
-                  cnic = Integer.parseInt(cnicField.getText());
-                  securityFee = Double.parseDouble(securityFeeField.getText());
+                    setName(nameField.getText());
+                    setFatherName(f_nameField.getText());
+                    setEducationLevel(educationField.getText());
+                    setCollegeName(collegeField.getText());
+                    setDateOfBirth(formatter.parse(dobField.getText()));
+                  dateFormat =  formatter.format(getDateOfBirth());
+                    setCnic(Integer.parseInt(cnicField.getText()));
+                    setSecurityFee(Double.parseDouble(securityFeeField.getText()));
+                   
+                  Threads t;  
                   
+                  t  = new Threads("Serialize");
                   
+                  t.start();
                   
-                  sql = "INSERT INTO `students` (`name`,`father_name`, `cnic`, `date_of_birth`, `eductionLevel`, `college_name`, `securityFee`) VALUES"
-                          + " ('"+name+"', '"+fatherName+"',  '"+cnic+"', '"+dateOfBirth+"', '"+educationLevel+"', '"+collegeName+"','"+securityFee+"');";
-                  String  displayAllSql = "SELECT name , father_name , cnic , date_of_birth , eductionLevel ,college_name ,securityFee FROM students";
-                  database.DataBase connectivity = new database.DataBase();
-                  Connection connection = connectivity.getConnection();
-                  connectivity.Update_Query(sql,connection);
-                 connectivity.displayAll(displayAllSql, connection);
-                 connection.close();
-              } catch (ParseException | SQLException | ClassNotFoundException ex) {
+                  t = new Threads("Db_Thread");
+                  
+                  t.start();
+                  
+                 
+              
+              } catch (ParseException ex) {
                   Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
               }
-                      
           }
       });
         
@@ -296,14 +272,104 @@ public class Student extends JFrame implements java.io.Serializable{
                   }
               });
              
-              
-              exitButton.addActionListener(new ActionListener() {
-                  @Override
-                  public void actionPerformed(ActionEvent e1) {
-                     System.exit(0);
-                      
-                  }
-              });
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the fatherName
+     */
+    public String getFatherName() {
+        return fatherName;
+    }
+
+    /**
+     * @param fatherName the fatherName to set
+     */
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
+    }
+
+    /**
+     * @return the cnic
+     */
+    public int getCnic() {
+        return cnic;
+    }
+
+    /**
+     * @param cnic the cnic to set
+     */
+    public void setCnic(int cnic) {
+        this.cnic = cnic;
+    }
+
+    /**
+     * @return the dateOfBirth
+     */
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    /**
+     * @param dateOfBirth the dateOfBirth to set
+     */
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    /**
+     * @return the educationLevel
+     */
+    public String getEducationLevel() {
+        return educationLevel;
+    }
+
+    /**
+     * @param educationLevel the educationLevel to set
+     */
+    public void setEducationLevel(String educationLevel) {
+        this.educationLevel = educationLevel;
+    }
+
+    /**
+     * @return the collegeName
+     */
+    public String getCollegeName() {
+        return collegeName;
+    }
+
+    /**
+     * @param collegeName the collegeName to set
+     */
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
+    }
+
+    /**
+     * @return the securityFee
+     */
+    public double getSecurityFee() {
+        return securityFee;
+    }
+
+    /**
+     * @param securityFee the securityFee to set
+     */
+    public void setSecurityFee(double securityFee) {
+        this.securityFee = securityFee;
     }
 
 

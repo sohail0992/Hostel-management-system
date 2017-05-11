@@ -10,6 +10,10 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -96,7 +100,8 @@ public class Admin extends JFrame{
      exit.setBounds(760, 570, 100, 30);
      exit.setFont(exit.getFont().deriveFont(16f));
      
-      JLabel security = new JLabel("incorrect username  or password");
+     JLabel security = new JLabel("Incorrect username  or password");
+     
     security.setBounds(250, 50, 300, 100);
     security.setFont(security.getFont().deriveFont(15f));
      loginForm.add(security);
@@ -128,13 +133,28 @@ public class Admin extends JFrame{
             try
             {
                 userName = userNameField.getText();
+                
                 password = passwordField.getText();
-                if(userName.equals("waheed") && password.equals("12345"))
+                
+                if(!userName.equals("") && !password.equals(""))
                 {
-                setVisible(false);
-                 manageStudents obj = new  manageStudents();
-                      obj.setVisible(true);
-                  }else
+                    if(validateUser(userName, password))
+                    {
+                       setVisible(false);
+                  
+                       manageStudents obj = new  manageStudents();
+                      
+                       obj.setVisible(true);
+                    }
+                        else
+                       {
+
+                          security.setVisible(true);
+
+                       }
+                    
+                  }
+                else
                 {
                     
                    security.setVisible(true);
@@ -170,17 +190,32 @@ public class Admin extends JFrame{
       
     }
      public boolean validateUser(String name , String pass )
-    {
-      database.DataBase db = new DataBase();
-     
-      Connection con = db.getConnection();
-      
-      String sql = "Select name, password from users where user_type = A";
-      
-
-      
-      return false;
-    
+    {      
+               String dbUserName , dbPassword;
+                        
+        try {
+            database.DataBase db = new DataBase();
+            
+            String sql = "SELECT name , cnic FROM users WHERE user_type LIKE 'A'";
+            
+            ResultSet rs = db.Select_Query(sql);
+           
+            while(rs.next())
+            {
+                dbUserName = rs.getString("name");
+                dbPassword = rs.getString("cnic");
+                
+                
+                return dbUserName.equals(name) && dbPassword.equals(pass);
+                
+            }
+               
+           
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        return false;
     
     }
      

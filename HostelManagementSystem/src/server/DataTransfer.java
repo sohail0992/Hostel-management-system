@@ -12,9 +12,9 @@ import java.rmi.server.UnicastRemoteObject;
  *
  * @author Sohail
  */
-public class DataTransfer extends UnicastRemoteObject implements DataInterface {
+public class DataTransfer extends UnicastRemoteObject implements DataInterface  {
     String msg;
-    public DataTransfer(String message)
+    public DataTransfer(String message) throws RemoteException 
     {
      msg = message;
     
