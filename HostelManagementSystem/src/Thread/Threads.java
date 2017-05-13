@@ -5,10 +5,8 @@
  */
 package Thread;
 
-import SerializeDeserialize.Serialize;
 import hostelmanagementsystem.Student;
 import hostelmanagementsystem.mainScreen;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -80,7 +78,7 @@ public class Threads implements Runnable {
                    
                    Thread.sleep(2000);
                    
-                   s.setVisible(false);
+                    s.setVisible(false);
                    
                     mainScreen ms = new mainScreen();
                    
@@ -97,37 +95,7 @@ public class Threads implements Runnable {
        }
            
            
-           /*
-           if(t.toString().contains("thread1"))
-           {
-           System.out.println("Thread 1 running");
-           }
-           else if(t.toString().contains("thread2"))
-           {
-           
-           }
-           else if(t.toString().contains("thread3"))
-           {
-           }
-           else if(t.toString().contains("thread4"))
-           {
-           }
-           else if(t.toString().contains("thread5"))
-           {
-           }
-           
-           for(int i = 0;i< 1000;i++)
-           {
-           
-           System.out.println(i);
-           }
-           
-             */       
-   
-
-    /**
-     * @return the threadName
-     */
+        
     public String getThreadName() {
         return threadName;
     }
